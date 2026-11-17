@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - SkillHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <div id="navbar-placeholder"></div>
+
+  <main class="container-xl py-4">
+    <!-- Header -->
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h2 class="fw-bold mb-1">Student Profile &amp; Settings</h2>
+        <p class="text-muted small mb-0">Manage your campus identity, academic department, and account security.</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left Column: Profile Card & Quick Stats -->
+      <div class="col-lg-4">
+        <div class="card card-custom p-4 bg-white border-0 shadow-sm text-center mb-4">
+          <div class="user-avatar-pill mx-auto mb-3" id="profile-avatar" style="width: 72px; height: 72px; font-size: 1.75rem;">
+            U
+          </div>
+          <h4 class="fw-bold mb-1 text-dark" id="profile-name">-</h4>
+          <p class="text-muted small mb-2" id="profile-email">-</p>
+          <div class="d-flex justify-content-center gap-2 mb-3">
+            <span class="badge bg-primary-subtle text-primary border" id="profile-dept-badge">-</span>
+            <span class="badge bg-secondary-subtle text-secondary border" id="profile-year-badge">-</span>
+          </div>
+          <div class="small text-muted border-top pt-3">
+            Registered Student ID: <strong>#<span id="profile-id">-</span></strong>
+          </div>
+        </div>
+
+        <div class="card card-custom p-4 bg-white border-0 shadow-sm">
+          <h6 class="fw-bold mb-3 text-dark">Platform Engagement</h6>
+          <div class="d-flex justify-content-between py-2 border-bottom small">
+            <span class="text-muted">Skills I Teach</span>
+            <strong class="text-primary" id="stat-taught">-</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom small">
+            <span class="text-muted">Requests Received</span>
+            <strong class="text-dark" id="stat-incoming">-</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom small">
+            <span class="text-muted">Requests Sent</span>
+            <strong class="text-dark" id="stat-outgoing">-</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 small">
+            <span class="text-muted">Reviews Received</span>
+            <strong class="text-warning" id="stat-reviews">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Edit Profile Form -->
+      <div class="col-lg-8">
+        <div class="card card-custom p-4 p-md-5 bg-white border-0 shadow-sm">
+          <h5 class="fw-bold mb-3 text-dark border-bottom pb-2">Edit Student Information</h5>
+
+          <form id="profile-form">
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="input-name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="input-name" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="input-email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="input-email" required>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="input-dept" class="form-label">Department</label>
+                <select class="form-select" id="input-dept" required>
+                  <option value="CSE">Computer Science &amp; Eng (CSE)</option>
+                  <option value="IT">Information Technology (IT)</option>
+                  <option value="ECE">Electronics &amp; Comm (ECE)</option>
+                  <option value="EEE">Electrical &amp; Electronics (EEE)</option>
+                  <option value="Mechanical">Mechanical Engineering</option>
+                  <option value="Civil">Civil Engineering</option>
+                  <option value="Data Science">Data Science &amp; AI</option>
+                  <option value="Business">Business &amp; Management</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="input-year" class="form-label">Year of Study</label>
+                <select class="form-select" id="input-year" required>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
+                  <option value="5">5th Year (Postgrad)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="input-password" class="form-label">Update Password</label>
+              <input type="password" class="form-control" id="input-password" placeholder="Enter new password (or leave current password)">
+              <div class="form-text">Leave unchanged if you don't wish to change your password.</div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+              <button type="button" class="btn btn-outline-danger btn-sm" id="delete-account-btn">
+                <i class="bi bi-trash3 me-1"></i>Delete Profile
+              </button>
+
+              <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold" id="save-profile-btn">
+                <span class="spinner-border spinner-border-sm me-1 d-none" id="save-spinner"></span>
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    let user = requireAuth();
+
+    async function initProfile() {
+      if (!user) return;
+
+      // Populate left card
+      document.getElementById('profile-avatar').textContent = getInitials(user.name);
+      document.getElementById('profile-name').textContent = user.name;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('profile-dept-badge').textContent = user.department || 'Student';
+      document.getElementById('profile-year-badge').textContent = `Year ${user.year || 1}`;
+      document.getElementById('profile-id').textContent = user.studentId;
+
+      // Populate form
+      document.getElementById('input-name').value = user.name || '';
+      document.getElementById('input-email').value = user.email || '';
+      document.getElementById('input-dept').value = user.department || 'CSE';
+      document.getElementById('input-year').value = user.year || 1;
+      document.getElementById('input-password').value = user.password || '';
+
+      // Load engagement counts
+      try {
+        const [mySkills, inReqs, outReqs, ratings] = await Promise.all([
+          api.studentSkills.getByStudent(user.studentId).catch(() => []),
+          api.requests.getMentorRequests(user.studentId).catch(() => []),
+          api.requests.getLearnerRequests(user.studentId).catch(() => []),
+          api.ratings.getByMentor(user.studentId).catch(() => [])
+        ]);
+
+        document.getElementById('stat-taught').textContent = mySkills.length;
+        document.getElementById('stat-incoming').textContent = inReqs.length;
+        document.getElementById('stat-outgoing').textContent = outReqs.length;
+        document.getElementById('stat-reviews').textContent = ratings.length;
+
+      } catch (e) {
+        console.warn('Could not load profile engagement numbers:', e);
+      }
+    }
+
+    // Save profile changes
+    document.getElementById('profile-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('save-profile-btn');
+      const spinner = document.getElementById('save-spinner');
+
+      btn.disabled = true;
+      spinner.classList.remove('d-none');
+
+      const updatedPayload = {
+        name: document.getElementById('input-name').value.trim(),
+        email: document.getElementById('input-email').value.trim(),
+        department: document.getElementById('input-dept').value,
+        year: parseInt(document.getElementById('input-year').value, 10),
+        password: document.getElementById('input-password').value || user.password
+      };
+
+      try {
+        const res = await api.students.update(user.studentId, updatedPayload);
+        // Preserve password locally if not returned by backend
+        res.password = updatedPayload.password;
+        setCurrentUser(res);
+        user = res;
+        showToast('Profile updated successfully!', 'success');
+        initProfile();
+      } catch (err) {
+        showToast('Error updating profile: ' + err.message, 'danger');
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('d-none');
+      }
+    });
+
+    // Delete account
+    document.getElementById('delete-account-btn').addEventListener('click', async () => {
+      if (!confirm('Are you sure you want to delete your student account? This action cannot be undone.')) {
+        return;
+      }
+
+      try {
+        await api.students.delete(user.studentId);
+        clearCurrentUser();
+        showToast('Your account was deleted successfully.', 'info');
+        setTimeout(() => window.location.href = 'index.html', 800);
+      } catch (err) {
+        showToast('Could not delete account: ' + err.message, 'danger');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', initProfile);
+  </script>
+</body>
+</html>
+

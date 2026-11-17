@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Offered Skills - SkillHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <div id="navbar-placeholder"></div>
+
+  <main class="container-xl py-4">
+    <!-- Header -->
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h2 class="fw-bold mb-1">My Skills Catalog</h2>
+        <p class="text-muted small mb-0">
+          Skills you offer to mentor fellow students. Publish new expertise to start receiving exchange requests.
+        </p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <button class="btn btn-primary btn-sm px-3 py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+          <i class="bi bi-plus-circle me-1"></i>Add Skill to Teach
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Offerings List -->
+    <div class="card card-custom p-4 bg-white border-0 shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+        <div>
+          <h5 class="fw-bold mb-0">Active Skill Offerings</h5>
+          <span class="small text-muted" id="offerings-count">Loading your offerings...</span>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-custom align-middle">
+          <thead>
+            <tr>
+              <th>Skill Name</th>
+              <th>Category</th>
+              <th>Proficiency Level</th>
+              <th>Offering ID</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="my-skills-table-body">
+            <tr>
+              <td colspan="5" class="text-center py-4 text-muted">
+                <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
+                <span class="ms-2 small">Loading skills...</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Skill Modal -->
+  <div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="addSkillModalLabel">
+            <i class="bi bi-award text-primary me-2"></i>Offer a New Skill
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="add-skill-form">
+          <div class="modal-body py-3">
+            <!-- Mode Switcher: Existing vs New Skill -->
+            <ul class="nav nav-pills nav-fill mb-3 p-1 bg-light rounded-3" id="skillTypeTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active py-1.5 small fw-semibold" id="tab-existing" data-bs-toggle="pill" data-bs-target="#pane-existing" type="button" role="tab">Choose from Catalog</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link py-1.5 small fw-semibold" id="tab-new" data-bs-toggle="pill" data-bs-target="#pane-new" type="button" role="tab">Create New Skill</button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="skillTabContent">
+              <!-- Select Existing Skill Tab -->
+              <div class="tab-pane fade show active" id="pane-existing" role="tabpanel">
+                <div class="mb-3">
+                  <label for="select-skill" class="form-label">Select Skill</label>
+                  <select class="form-select" id="select-skill">
+                    <option value="" disabled selected>Choose a skill...</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Create New Skill Tab -->
+              <div class="tab-pane fade" id="pane-new" role="tabpanel">
+                <div class="mb-3">
+                  <label for="new-skill-name" class="form-label">Skill Name</label>
+                  <input type="text" class="form-control" id="new-skill-name" placeholder="e.g. React.js, Python, Figma, Circuit Design">
+                </div>
+                <div class="mb-3">
+                  <label for="new-skill-category" class="form-label">Category</label>
+                  <select class="form-select" id="new-skill-category">
+                    <option value="Programming">Programming &amp; Software</option>
+                    <option value="Data Science">Data Science &amp; AI</option>
+                    <option value="Web Development">Web &amp; Full Stack</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Engineering">Engineering Core</option>
+                    <option value="Mathematics">Mathematics &amp; Logic</option>
+                    <option value="Languages">Languages &amp; Writing</option>
+                    <option value="General">General / Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level Selector -->
+            <div class="mb-3">
+              <label for="select-level" class="form-label">Your Mentoring Proficiency Level</label>
+              <select class="form-select" id="select-level" required>
+                <option value="Beginner">Beginner (Foundational guidance)</option>
+                <option value="Intermediate" selected>Intermediate (Coursework &amp; Projects)</option>
+                <option value="Advanced">Advanced / Expert (Deep mastery &amp; Interview prep)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer border-0 pt-0">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm px-3" id="save-skill-btn">
+              <span class="spinner-border spinner-border-sm me-1 d-none" id="save-skill-spinner"></span>
+              Add to My Offerings
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const user = requireAuth();
+    let myOfferings = [];
+    let catalogSkills = [];
+    let isCreatingNew = false;
+
+    // Track active tab
+    document.getElementById('tab-existing').addEventListener('shown.bs.tab', () => isCreatingNew = false);
+    document.getElementById('tab-new').addEventListener('shown.bs.tab', () => isCreatingNew = true);
+
+    async function loadMySkills() {
+      if (!user) return;
+
+      try {
+        const [offerings, skills] = await Promise.all([
+          api.studentSkills.getByStudent(user.studentId).catch(() => []),
+          api.skills.getAll().catch(() => [])
+        ]);
+
+        myOfferings = offerings;
+        catalogSkills = skills;
+
+        // Populate catalog dropdown
+        const select = document.getElementById('select-skill');
+        select.innerHTML = '<option value="" disabled selected>Choose a skill from catalog...</option>';
+        skills.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s.skillId;
+          opt.textContent = `${s.skillName} (${s.category || 'General'})`;
+          select.appendChild(opt);
+        });
+
+        renderOfferingsTable();
+      } catch (err) {
+        showToast('Error loading skills: ' + err.message, 'danger');
+      }
+    }
+
+    function renderOfferingsTable() {
+      const tbody = document.getElementById('my-skills-table-body');
+      document.getElementById('offerings-count').textContent = `You are actively offering ${myOfferings.length} skills to campus peers.`;
+
+      if (myOfferings.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="text-center py-5">
+              <div class="empty-state">
+                <i class="bi bi-award text-muted fs-1 mb-2 d-block"></i>
+                <h6 class="fw-bold">You haven't listed any skills to mentor yet</h6>
+                <p class="text-muted small mb-3">Share your mastery and earn peer swap requests!</p>
+                <button class="btn btn-primary btn-sm px-3" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+                  <i class="bi bi-plus-lg me-1"></i>Offer a Skill
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = myOfferings.map(ss => {
+        const skill = ss.skill || {};
+        return `
+          <tr>
+            <td>
+              <strong class="text-dark">${skill.skillName || 'Untitled Skill'}</strong>
+            </td>
+            <td>
+              <span class="badge badge-category">${skill.category || 'General'}</span>
+            </td>
+            <td>
+              <span class="${getLevelBadgeClass(ss.level)}">${ss.level || 'Intermediate'}</span>
+            </td>
+            <td class="text-muted small">#${ss.id}</td>
+            <td class="text-end">
+              <button class="btn btn-outline-danger btn-sm" onclick="deleteOffering(${ss.id}, '${encodeURIComponent(skill.skillName || 'Skill')}')">
+                <i class="bi bi-trash3 me-1"></i>Remove
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Add Skill Offering
+    document.getElementById('add-skill-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const level = document.getElementById('select-level').value;
+      const btn = document.getElementById('save-skill-btn');
+      const spinner = document.getElementById('save-skill-spinner');
+
+      btn.disabled = true;
+      spinner.classList.remove('d-none');
+
+      try {
+        let skillId = null;
+
+        if (isCreatingNew) {
+          const newName = document.getElementById('new-skill-name').value.trim();
+          const newCategory = document.getElementById('new-skill-category').value;
+          if (!newName) {
+            showToast('Please enter a name for the new skill.', 'warning');
+            btn.disabled = false;
+            spinner.classList.add('d-none');
+            return;
+          }
+
+          // Check if skill already exists in catalog
+          const existing = catalogSkills.find(s => s.skillName.toLowerCase() === newName.toLowerCase());
+          if (existing) {
+            skillId = existing.skillId;
+          } else {
+            const created = await api.skills.create({ skillName: newName, category: newCategory });
+            skillId = created.skillId;
+          }
+        } else {
+          skillId = parseInt(document.getElementById('select-skill').value, 10);
+          if (!skillId) {
+            showToast('Please select a skill from the catalog.', 'warning');
+            btn.disabled = false;
+            spinner.classList.add('d-none');
+            return;
+          }
+        }
+
+        // Now link student to skill
+        const payload = {
+          student: { studentId: user.studentId },
+          skill: { skillId: skillId },
+          level: level
+        };
+
+        await api.studentSkills.create(payload);
+        showToast('Skill added to your mentor profile!', 'success');
+
+        const modalEl = document.getElementById('addSkillModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+
+        // Reset form
+        document.getElementById('add-skill-form').reset();
+        loadMySkills();
+
+      } catch (err) {
+        showToast('Error saving skill: ' + err.message, 'danger');
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('d-none');
+      }
+    });
+
+    async function deleteOffering(offeringId, skillName) {
+      if (!confirm(`Are you sure you want to stop offering mentorship in "${decodeURIComponent(skillName)}"?`)) {
+        return;
+      }
+
+      try {
+        await api.studentSkills.delete(offeringId);
+        showToast('Skill offering removed.', 'info');
+        loadMySkills();
+      } catch (err) {
+        showToast('Error deleting skill: ' + err.message, 'danger');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMySkills);
+  </script>
+</body>
+</html>

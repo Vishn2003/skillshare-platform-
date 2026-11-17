@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Sessions Tracker - SkillHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <div id="navbar-placeholder"></div>
+
+  <main class="container-xl py-4">
+    <!-- Header -->
+    <div class="row align-items-center mb-4">
+      <div class="col-md-8">
+        <h2 class="fw-bold mb-1">Learning Sessions Tracker</h2>
+        <p class="text-muted small mb-0">
+          Monitor your accepted peer mentorship sessions and review completed technical exchanges.
+        </p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="requests.html" class="btn btn-outline-primary btn-sm px-3 py-2">
+          <i class="bi bi-arrow-left-right me-1"></i>View All Requests
+        </a>
+      </div>
+    </div>
+
+    <!-- Sessions Stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-sm-4">
+        <div class="card-stat">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="small fw-semibold text-muted">Active Sessions</span>
+            <span class="stat-icon primary"><i class="bi bi-clock-history"></i></span>
+          </div>
+          <h2 class="fw-bold mb-0 text-primary" id="stat-active-sessions">0</h2>
+          <span class="small text-muted">In Progress / Accepted</span>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card-stat">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="small fw-semibold text-muted">Completed Sessions</span>
+            <span class="stat-icon success"><i class="bi bi-check2-circle"></i></span>
+          </div>
+          <h2 class="fw-bold mb-0 text-success" id="stat-completed-sessions">0</h2>
+          <span class="small text-muted">Finished Swaps</span>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card-stat">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="small fw-semibold text-muted">Total Knowledge Swaps</span>
+            <span class="stat-icon accent"><i class="bi bi-mortarboard"></i></span>
+          </div>
+          <h2 class="fw-bold mb-0 text-accent" id="stat-total-sessions">0</h2>
+          <span class="small text-muted">Platform Engagements</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Sessions Section -->
+    <div class="card card-custom p-4 bg-white border-0 shadow-sm mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <div>
+          <h5 class="fw-bold mb-0">Active &amp; Ongoing Sessions</h5>
+          <span class="small text-muted">Sessions currently accepted and ready for mentoring</span>
+        </div>
+        <span class="badge bg-primary-subtle text-primary" id="active-badge">0 Active</span>
+      </div>
+
+      <div class="row g-3" id="active-sessions-grid">
+        <div class="col-12 text-center py-4">
+          <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
+          <span class="ms-2 small text-muted">Loading active sessions...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Sessions Section -->
+    <div class="card card-custom p-4 bg-white border-0 shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <div>
+          <h5 class="fw-bold mb-0">Completed Learning Exchanges</h5>
+          <span class="small text-muted">Past mentorship sessions</span>
+        </div>
+        <span class="badge bg-success-subtle text-success" id="completed-badge">0 Completed</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-custom align-middle">
+          <thead>
+            <tr>
+              <th>Request #</th>
+              <th>Role</th>
+              <th>Partner Student</th>
+              <th>Topic / Skill</th>
+              <th>Exchange Note</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="completed-sessions-tbody">
+            <tr>
+              <td colspan="6" class="text-center py-4 text-muted small">Loading history...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const user = requireAuth();
+
+    async function loadSessions() {
+      if (!user) return;
+
+      try {
+        const [mentorReqs, learnerReqs, students, skills, ratings] = await Promise.all([
+          api.requests.getMentorRequests(user.studentId).catch(() => []),
+          api.requests.getLearnerRequests(user.studentId).catch(() => []),
+          api.students.getAll().catch(() => []),
+          api.skills.getAll().catch(() => []),
+          api.ratings.getAll().catch(() => [])
+        ]);
+
+        const studentMap = {};
+        students.forEach(s => { studentMap[s.studentId] = s; });
+
+        const skillMap = {};
+        skills.forEach(sk => { skillMap[sk.skillId] = sk; });
+
+        // Tag role for each request
+        const allUserReqs = [
+          ...mentorReqs.map(r => ({ ...r, role: 'Mentor' })),
+          ...learnerReqs.map(r => ({ ...r, role: 'Learner' }))
+        ];
+
+        const activeSessions = allUserReqs.filter(r => r.status === 'ACCEPTED');
+        const completedSessions = allUserReqs.filter(r => r.status === 'COMPLETED');
+
+        // Update stats
+        document.getElementById('stat-active-sessions').textContent = activeSessions.length;
+        document.getElementById('stat-completed-sessions').textContent = completedSessions.length;
+        document.getElementById('stat-total-sessions').textContent = activeSessions.length + completedSessions.length;
+        document.getElementById('active-badge').textContent = `${activeSessions.length} Active`;
+        document.getElementById('completed-badge').textContent = `${completedSessions.length} Completed`;
+
+        renderActive(activeSessions, studentMap, skillMap);
+        renderCompleted(completedSessions, studentMap, skillMap, ratings);
+
+      } catch (err) {
+        showToast('Error loading sessions: ' + err.message, 'danger');
+      }
+    }
+
+    function renderActive(sessions, studentMap, skillMap) {
+      const container = document.getElementById('active-sessions-grid');
+      if (sessions.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 text-center py-4 text-muted small">
+            No active learning sessions right now. Accept an incoming request or wait for a mentor to accept yours!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = sessions.map(s => {
+        const isMentor = s.role === 'Mentor';
+        const partner = isMentor ? studentMap[s.learnerId] : studentMap[s.mentorId];
+        const partnerName = partner ? partner.name : (isMentor ? `Student #${s.learnerId}` : `Mentor #${s.mentorId}`);
+        const partnerDept = partner ? partner.department : 'Student';
+        const skill = skillMap[s.skillId] || { skillName: `Skill #${s.skillId}` };
+
+        return `
+          <div class="col-md-6">
+            <div class="p-3 bg-light rounded-3 border h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge ${isMentor ? 'bg-primary' : 'bg-secondary'}">${s.role}</span>
+                <span class="badge-status ACCEPTED"><i class="bi bi-clock"></i> In Progress</span>
+              </div>
+              <h5 class="fw-bold mb-1">${skill.skillName}</h5>
+              <div class="small text-muted mb-2">
+                ${isMentor ? 'Teaching to:' : 'Learning from:'} <strong>${partnerName}</strong> (${partnerDept})
+              </div>
+              ${s.message ? `<p class="small text-muted fst-italic mb-3">"${s.message}"</p>` : ''}
+              
+              <!-- Direct Connect Options -->
+              <div class="p-2.5 bg-white rounded-3 border mb-3 small">
+                <div class="fw-semibold text-dark mb-1 d-flex align-items-center gap-1">
+                  <i class="bi bi-camera-video text-primary"></i>
+                  <span>Connect with ${partnerName}:</span>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <a href="https://meet.google.com/new" target="_blank" class="btn btn-xs btn-outline-primary py-1 px-2.5 rounded-pill d-inline-flex align-items-center gap-1.5 fw-semibold" title="Open a new Google Meet session">
+                    <i class="bi bi-camera-video-fill text-danger"></i> Start Google Meet
+                  </a>
+                  ${partner && partner.email ? `
+                    <a href="mailto:${partner.email}?subject=SkillHub Mentorship: ${encodeURIComponent(skill.skillName)}&body=Hi ${encodeURIComponent(partnerName)},%0D%0A%0D%0ALet's connect for our SkillHub session on ${encodeURIComponent(skill.skillName)}!%0D%0A%0D%0ABest regards,%0D%0A${encodeURIComponent(user.name)}" class="btn btn-xs btn-outline-secondary py-1 px-2.5 rounded-pill d-inline-flex align-items-center gap-1.5" title="Email ${partner.email}">
+                      <i class="bi bi-envelope-fill text-primary"></i> ${partner.email}
+                    </a>
+                  ` : ''}
+                </div>
+              </div>
+
+              <div class="mt-auto pt-2 border-top d-flex justify-content-between align-items-center">
+                <span class="small text-muted">Request #${s.requestId}</span>
+                ${isMentor ? `
+                  <button class="btn btn-sm btn-success" onclick="completeSession(${s.requestId})">
+                    <i class="bi bi-check2-circle me-1"></i>Mark Completed
+                  </button>
+                ` : `
+                  <span class="small text-muted"><i class="bi bi-info-circle me-1"></i>Awaiting mentor completion</span>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCompleted(sessions, studentMap, skillMap, ratings) {
+      const tbody = document.getElementById('completed-sessions-tbody');
+      if (sessions.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-4 text-muted small">No completed sessions logged yet.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = sessions.map(s => {
+        const isMentor = s.role === 'Mentor';
+        const partner = isMentor ? studentMap[s.learnerId] : studentMap[s.mentorId];
+        const partnerName = partner ? partner.name : 'Peer Student';
+        const skill = skillMap[s.skillId] || { skillName: `Skill #${s.skillId}` };
+        
+        // Check if rating exists
+        const hasRated = ratings.some(r => r.request?.requestId === s.requestId);
+
+        return `
+          <tr>
+            <td class="fw-bold small text-muted">#${s.requestId}</td>
+            <td><span class="badge ${isMentor ? 'bg-primary-subtle text-primary' : 'bg-secondary-subtle text-secondary'}">${s.role}</span></td>
+            <td><strong>${partnerName}</strong></td>
+            <td><span class="fw-semibold text-primary">${skill.skillName}</span></td>
+            <td class="small text-muted text-truncate" style="max-width: 200px;">${s.message || '—'}</td>
+            <td class="text-end">
+              ${!isMentor && !hasRated ? `
+                <a href="reviews.html?reqId=${s.requestId}&mentorId=${s.mentorId}" class="btn btn-sm btn-warning">
+                  <i class="bi bi-star-fill me-1"></i>Rate Mentor
+                </a>
+              ` : `
+                <span class="badge bg-success-subtle text-success"><i class="bi bi-check-all me-1"></i>Finished</span>
+              `}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function completeSession(reqId) {
+      try {
+        await api.requests.updateStatus(reqId, 'COMPLETED');
+        showToast(`Session #${reqId} completed!`, 'success');
+        loadSessions();
+      } catch (err) {
+        showToast('Error: ' + err.message, 'danger');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSessions);
+  </script>
+</body>
+</html>
+

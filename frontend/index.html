@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillHub - Campus Peer Skill Exchange Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Hero Section -->
+  <header class="py-5 bg-gradient position-relative overflow-hidden d-flex align-items-center" style="min-height: calc(100vh - 72px); background: radial-gradient(circle at top right, #e0e7ff 0%, #f8fafc 50%, #ffffff 100%);">
+    <div class="container-xl py-4 w-100">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7 py-2">
+          <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary fw-semibold small mb-3">
+            <i class="bi bi-mortarboard-fill"></i> Campus Peer-to-Peer Learning Network
+          </div>
+          <h1 class="display-3 fw-bold text-dark tracking-tight mb-4" style="font-size: 3.4rem; line-height: 1.18;">
+            Exchange Skills. Master New Tech. <span class="text-primary">Zero Tuition Barriers.</span>
+          </h1>
+          <p class="lead text-muted mb-4" style="font-size: 1.28rem; line-height: 1.6;">
+            Trade your Java expertise for Web Development, Python debugging for Database Design. Connect with verified fellow students on your campus and grow together.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#campus-catalog" class="btn btn-primary btn-lg px-4 py-3 shadow-sm fw-bold">
+              <i class="bi bi-grid-3x3-gap-fill me-2"></i>Browse Campus Catalog
+            </a>
+            <a href="register.html" class="btn btn-outline-secondary btn-lg px-4 py-3 fw-bold">
+              <i class="bi bi-person-plus me-2"></i>Join SkillHub
+            </a>
+          </div>
+
+          <div class="d-flex flex-wrap gap-4 pt-2 text-muted small fw-semibold">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-patch-check-fill text-primary fs-5"></i>
+              <span>100% Free Campus Exchange</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-arrow-left-right text-success fs-5"></i>
+              <span>1-on-1 Peer Sessions</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-star-fill text-warning fs-5"></i>
+              <span>Verified Student Ratings</span>
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <a href="#campus-catalog" class="text-decoration-none text-muted small d-inline-flex align-items-center gap-2">
+              <i class="bi bi-arrow-down-circle-fill text-primary fs-6"></i>
+              <span>Scroll down to view <strong>Campus Catalog &amp; Active Skills</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="d-flex flex-column gap-3">
+            <!-- Card 1: Top Mentor Profile -->
+            <div class="card card-custom p-4 border-0 shadow-lg bg-white position-relative" style="border-radius: 20px;">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-bold text-dark"><i class="bi bi-stars text-warning me-1"></i>Top Mentor Profile</span>
+                <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle-fill me-1"></i>Available</span>
+              </div>
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="user-avatar-pill" style="width: 52px; height: 52px; font-size: 1.25rem;">R</div>
+                <div>
+                  <h5 class="mb-0 fw-bold">Rahul M.</h5>
+                  <span class="small text-muted">Computer Science • Year 3</span>
+                </div>
+              </div>
+              <div class="p-3 bg-light rounded-3 mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="small fw-semibold text-muted">Teaches</span>
+                  <span class="badge bg-primary">Java &amp; Spring Boot</span>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span>Proficiency Level</span>
+                  <span class="badge-level advanced">Advanced</span>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                <div>
+                  <span class="star-static"><i class="bi bi-star-fill text-warning"></i> 5.0</span>
+                  <span class="small text-muted ms-1">(12 reviews)</span>
+                </div>
+                <a href="explore-skills.html" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                  Request Swap
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 2: Active Peer Match -->
+            <div class="card card-custom p-4 border-0 shadow-lg bg-white position-relative" style="border-radius: 20px;">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-bold text-dark"><i class="bi bi-lightning-charge-fill text-primary me-1"></i>Active Peer Match</span>
+                <span class="badge bg-primary-subtle text-primary"><i class="bi bi-person-check-fill me-1"></i>Accepting Learners</span>
+              </div>
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="user-avatar-pill" style="width: 52px; height: 52px; font-size: 1.25rem; background: linear-gradient(135deg, #10b981, #06b6d4);">A</div>
+                <div>
+                  <h5 class="mb-0 fw-bold">Arun K.</h5>
+                  <span class="small text-muted">Information Technology • Year 2</span>
+                </div>
+              </div>
+              <div class="p-3 bg-light rounded-3 mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="small fw-semibold text-muted">Teaches</span>
+                  <span class="badge bg-success">Web Development &amp; React</span>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span>Proficiency Level</span>
+                  <span class="badge-level intermediate">Intermediate</span>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                <div>
+                  <span class="star-static"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                  <span class="small text-muted ms-1">(8 reviews)</span>
+                </div>
+                <a href="explore-skills.html" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                  Request Swap
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Statistics Section -->
+  <section class="py-5 border-bottom bg-white">
+    <div class="container-xl py-4">
+      <div class="row g-4 g-lg-5 text-center" id="platform-stats-row">
+        <div class="col-6 col-md-3">
+          <div class="p-3 p-md-4">
+            <h3 class="display-5 fw-bold text-primary mb-2" id="stat-students">-</h3>
+            <span class="text-muted small fw-semibold">Active Students</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 p-md-4">
+            <h3 class="display-5 fw-bold text-secondary mb-2" id="stat-skills">-</h3>
+            <span class="text-muted small fw-semibold">Skills in Catalog</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 p-md-4">
+            <h3 class="display-5 fw-bold text-accent mb-2" id="stat-offerings">-</h3>
+            <span class="text-muted small fw-semibold">Mentor Offerings</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 p-md-4">
+            <h3 class="display-5 fw-bold text-success mb-2" id="stat-requests">-</h3>
+            <span class="text-muted small fw-semibold">Exchange Requests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Skills Catalog Preview -->
+  <section class="py-5 bg-white border-top border-bottom" id="campus-catalog">
+    <div class="container-xl py-3">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+        <div>
+          <span class="badge bg-secondary-subtle text-secondary fw-bold mb-2">Campus Catalog</span>
+          <h2 class="fw-bold mb-1">Available Skills for Exchange</h2>
+          <p class="text-muted small mb-0">Connect with peers across departments ready to mentor in these topics.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-3 mt-md-0" id="skills-carousel-nav">
+          <button class="carousel-btn" type="button" data-bs-target="#skillsCarousel" data-bs-slide="prev" aria-label="Previous" title="Previous Slide">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="carousel-btn" type="button" data-bs-target="#skillsCarousel" data-bs-slide="next" aria-label="Next" title="Next Slide">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <a href="explore-skills.html" class="btn btn-outline-primary btn-sm ms-2">
+            View All Skills <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Skills Carousel -->
+      <div id="skillsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner" id="skills-carousel-inner">
+          <div class="carousel-item active">
+            <div class="col-12 text-center py-5">
+              <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
+              <span class="ms-2 small text-muted">Loading live skills from backend...</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-indicators position-relative mt-4 mb-0" id="skills-carousel-indicators"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-5 bg-light">
+    <div class="container-xl py-3">
+      <div class="text-center max-w-xl mx-auto mb-5">
+        <span class="badge bg-primary-subtle text-primary fw-bold mb-2">Simple 4-Step Process</span>
+        <h2 class="fw-bold display-6">How Campus SkillHub Works</h2>
+        <p class="text-muted">Turn your coursework expertise into peer learning opportunities in four seamless steps.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card card-custom h-100 p-4 text-center">
+            <div class="stat-icon primary mx-auto mb-3" style="width: 54px; height: 54px; font-size: 1.5rem;">
+              <i class="bi bi-person-plus-fill"></i>
+            </div>
+            <h5 class="fw-bold mb-2">1. Register Profile</h5>
+            <p class="text-muted small mb-0">Sign up with your campus email, choose your department and year of study.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card card-custom h-100 p-4 text-center">
+            <div class="stat-icon secondary mx-auto mb-3" style="width: 54px; height: 54px; font-size: 1.5rem;">
+              <i class="bi bi-award-fill"></i>
+            </div>
+            <h5 class="fw-bold mb-2">2. Publish Skills</h5>
+            <p class="text-muted small mb-0">List skills you can mentor fellow students in, with your proficiency level.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card card-custom h-100 p-4 text-center">
+            <div class="stat-icon accent mx-auto mb-3" style="width: 54px; height: 54px; font-size: 1.5rem;">
+              <i class="bi bi-chat-left-dots-fill"></i>
+            </div>
+            <h5 class="fw-bold mb-2">3. Send Requests</h5>
+            <p class="text-muted small mb-0">Browse student mentors and send learning requests tailored to your needs.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card card-custom h-100 p-4 text-center">
+            <div class="stat-icon success mx-auto mb-3" style="width: 54px; height: 54px; font-size: 1.5rem;">
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <h5 class="fw-bold mb-2">4. Learn &amp; Rate</h5>
+            <p class="text-muted small mb-0">Complete peer sessions, exchange feedback, and build a trusted reputation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Quick Demo Login helper
+    async function quickLogin(email, password) {
+      try {
+        const student = await api.students.login(email, password);
+        if (student) {
+          setCurrentUser(student);
+          showToast(`Welcome back, ${student.name}!`, 'success');
+          setTimeout(() => window.location.href = 'dashboard.html', 400);
+        } else {
+          showToast('Could not login demo student. Please check backend.', 'danger');
+        }
+      } catch (e) {
+        showToast('Login error: ' + e.message, 'danger');
+      }
+    }
+
+    // Load Live Platform Stats and Featured Skills
+    async function loadLandingData() {
+      try {
+        const [students, skills, studentSkills, requests] = await Promise.all([
+          api.students.getAll().catch(() => []),
+          api.skills.getAll().catch(() => []),
+          api.studentSkills.getAll().catch(() => []),
+          api.requests.getAll().catch(() => [])
+        ]);
+
+        document.getElementById('stat-students').textContent = students.length || 0;
+        document.getElementById('stat-skills').textContent = skills.length || 0;
+        document.getElementById('stat-offerings').textContent = studentSkills.length || 0;
+        document.getElementById('stat-requests').textContent = requests.length || 0;
+
+        const carouselInner = document.getElementById('skills-carousel-inner');
+        const carouselIndicators = document.getElementById('skills-carousel-indicators');
+        const carouselNav = document.getElementById('skills-carousel-nav');
+
+        if (skills.length === 0) {
+          carouselInner.innerHTML = `
+            <div class="carousel-item active">
+              <div class="col-12 text-center py-5 text-muted small">
+                No skills listed yet in database. <a href="login.html">Login</a> to be the first to add a skill!
+              </div>
+            </div>
+          `;
+          if (carouselNav) carouselNav.classList.add('d-none');
+          if (carouselIndicators) carouselIndicators.innerHTML = '';
+          return;
+        }
+
+        // Chunk skills into slides of 3 cards each (responsive for desktop & mobile)
+        const chunkSize = 3;
+        const slides = [];
+        for (let i = 0; i < skills.length; i += chunkSize) {
+          slides.push(skills.slice(i, i + chunkSize));
+        }
+
+        carouselInner.innerHTML = slides.map((slideSkills, slideIndex) => `
+          <div class="carousel-item ${slideIndex === 0 ? 'active' : ''}">
+            <div class="row g-4 justify-content-center">
+              ${slideSkills.map(skill => {
+                const mentorsForSkill = studentSkills.filter(ss => ss.skill && ss.skill.skillId === skill.skillId);
+                return `
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card card-custom h-100 p-4 border shadow-sm">
+                      <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge badge-category px-2.5 py-1.5">${skill.category || 'General'}</span>
+                        <span class="badge bg-light text-muted border">${mentorsForSkill.length} ${mentorsForSkill.length === 1 ? 'Mentor' : 'Mentors'}</span>
+                      </div>
+                      <h5 class="fw-bold mb-2 text-dark">${skill.skillName}</h5>
+                      <p class="small text-muted mb-4">Connect with verified mentors on campus</p>
+                      <a href="explore-skills.html?search=${encodeURIComponent(skill.skillName)}" class="btn btn-outline-primary btn-sm mt-auto w-100 rounded-pill">
+                        Find Mentors <i class="bi bi-chevron-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `).join('');
+
+        if (slides.length > 1) {
+          if (carouselNav) carouselNav.classList.remove('d-none');
+          carouselIndicators.innerHTML = slides.map((_, i) => `
+            <button type="button" data-bs-target="#skillsCarousel" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Slide ${i + 1}"></button>
+          `).join('');
+
+          // Initialize Bootstrap Carousel instance with wrap & auto-cycle
+          const carouselEl = document.getElementById('skillsCarousel');
+          if (carouselEl && window.bootstrap) {
+            bootstrap.Carousel.getOrCreateInstance(carouselEl, {
+              interval: 5000,
+              wrap: true
+            });
+          }
+        } else {
+          if (carouselNav) carouselNav.classList.add('d-none');
+          carouselIndicators.innerHTML = '';
+        }
+
+      } catch (err) {
+        console.warn('Could not load landing statistics from backend:', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadLandingData);
+  </script>
+</body>
+</html>
+

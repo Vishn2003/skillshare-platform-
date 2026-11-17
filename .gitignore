@@ -1,0 +1,23 @@
+# Compiled class files & build directories
+**/target/
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+
+# IDE files
+**/.settings/
+**/.project
+**/.classpath
+**/.factorypath
+**/.idea/
+*.iml
+**/.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db

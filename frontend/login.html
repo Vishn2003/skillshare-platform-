@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login - SkillHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <div id="navbar-placeholder"></div>
+
+  <main class="container-xl py-5 my-auto">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5">
+        <div class="card card-custom p-4 p-md-5 border-0 shadow-lg bg-white" style="border-radius: 20px;">
+          
+          <div class="text-center mb-4">
+            <div class="brand-icon mx-auto mb-3" style="width: 48px; height: 48px; font-size: 1.4rem;">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+            <h3 class="fw-bold mb-1">Welcome Back</h3>
+            <p class="text-muted small">Log in with your registered student credentials</p>
+          </div>
+
+          <form id="login-form">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                <input type="email" class="form-control border-start-0" id="email" placeholder="name@university.edu" required autofocus>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <label for="password" class="form-label mb-0">Password</label>
+              </div>
+              <div class="input-group mt-1">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                <input type="password" class="form-control border-start-0 border-end-0" id="password" placeholder="••••••••" required>
+                <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePassword">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2.5 mb-3 fw-bold" id="submit-btn">
+              <span class="spinner-border spinner-border-sm me-2 d-none" id="loading-spinner"></span>
+              Sign In to SkillHub
+            </button>
+          </form>
+
+          <!-- Quick Demo Logins for Fast Testing -->
+          <div class="border-top pt-3 mt-2 text-center">
+            <span class="small text-muted d-block mb-2 fw-semibold">
+              <i class="bi bi-lightning-charge-fill text-warning"></i> Fast Demo Accounts:
+            </span>
+            <div class="d-grid gap-2">
+              <button class="btn btn-sm btn-light border text-start d-flex justify-content-between align-items-center py-2 px-3" onclick="fillAndSubmit('rahul@gmail.com', '1234')">
+                <div>
+                  <strong class="text-primary d-block">Rahul (Mentor)</strong>
+                  <span class="small text-muted">rahul@gmail.com • CSE, Year 3</span>
+                </div>
+                <i class="bi bi-arrow-right-short fs-5 text-muted"></i>
+              </button>
+              <button class="btn btn-sm btn-light border text-start d-flex justify-content-between align-items-center py-2 px-3" onclick="fillAndSubmit('arun@gmail.com', '1234')">
+                <div>
+                  <strong class="text-secondary d-block">Arun (Learner)</strong>
+                  <span class="small text-muted">arun@gmail.com • IT, Year 2</span>
+                </div>
+                <i class="bi bi-arrow-right-short fs-5 text-muted"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="text-center mt-4 pt-2 border-top">
+            <p class="small text-muted mb-0">
+              Don't have an account yet? <a href="register.html" class="fw-bold text-primary text-decoration-none">Register here</a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+    });
+
+    // Form Submission
+    const form = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const spinner = document.getElementById('loading-spinner');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      submitBtn.disabled = true;
+      spinner.classList.remove('d-none');
+
+      try {
+        const student = await api.students.login(email, password);
+        if (student && student.studentId) {
+          setCurrentUser(student);
+          showToast(`Login successful! Welcome back, ${student.name}.`, 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 400);
+        } else {
+          showToast('Invalid email or password. Please verify credentials.', 'danger');
+        }
+      } catch (err) {
+        showToast('Login failed: ' + (err.message || 'Server is temporarily unavailable. Please try again later.'), 'danger');
+      } finally {
+        submitBtn.disabled = false;
+        spinner.classList.add('d-none');
+      }
+    });
+
+    // Fast Demo Fill and Submit
+    function fillAndSubmit(email, password) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = password;
+      form.dispatchEvent(new Event('submit'));
+    }
+  </script>
+</body>
+</html>
+
